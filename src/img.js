@@ -1,6 +1,6 @@
-$(document).ready(function () {
+$(document).ready( function () {
 
-  function findPos(obj) {
+  var findPos = function (obj) {
     var curleft = 0, curtop = 0;
     if (obj.offsetParent) {
       do {
@@ -10,14 +10,14 @@ $(document).ready(function () {
       return { x: curleft, y: curtop };
     }
     return undefined;
-  }
+  };
 
-  function rgbToHex(r, g, b) {
-    if (r > 255 || g > 255 || b > 255){
+  var rgbToHex = function (r, g, b) {
+    if (r > 255 || g > 255 || b > 255) {
       throw "Invalid color component";
     }
     return ((r << 16) | (g << 8) | b).toString(16);
-  }
+  };
 
 
   // set up some squares
@@ -42,30 +42,20 @@ $(document).ready(function () {
     $('#compliment').css('background-color', comp);
   });
 
-  var getAverage = function () {
-    var r = [];
-    var g = [];
-    var b = [];
-    var coords = [[50, 50], [150, 150], [50, 150], [150, 50], [100, 100]];
-    for (var i = 0; i < coords.length; i++) {
-      var p = $('#example').get(0).getContext('2d').getImageData(coords[i][0], coords[i][1], 10, 10).data;
-      r.push(p[0]);
-      g.push(p[1]);
-      b.push(p[2]);
+  var getAllColorData = function () {
 
-      var averageValue = function (array) {
-        var result = 0;
-        for (var i = 0; i < array.length; i++) {
-          result += array[i]
-        };
-        return (result/array.length);
-      };
+    var result = [];
+
+    for (var i = 0; i < 200; i++) {
+      var p = $('#example').get(0).getContext('2d').getImageData(i, i, 10, 10).data;
+      result.push[]
     };
-    r = averageValue(r);
-    b = averageValue(b);
-    g = averageValue(g);
-    var result = '#' + ("000000" + rgbToHex(r, g, b)).slice(-6);
+
     return result;
+  };
+
+  var assembleColorPallete = function (colorArray) {
+
   };
 
   $('#average').css('background-color', getAverage());
