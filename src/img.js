@@ -15,7 +15,7 @@ $(document).ready( function () {
   };
 
   // The only problem with this is it interprets transparent as #000000
-  // Look into the possibility of detecting opacity and ignoring 0s
+  // TODO: Look into the possibility of detecting opacity and ignoring 0s
   var rgbToHex = function (r, g, b) {
     if (r > 255 || g > 255 || b > 255) {
       throw 'Invalid color component';
@@ -65,11 +65,9 @@ $(document).ready( function () {
     return result;
   };
 
-  var colorData = getColorData(example, 10);
-
-  // for assembling color pallete from array of raw rgb data from images
-  // tolerance is used to specify how different your resulting color pallete can be. Higher value means less results with higher contrast.
-  var assembleColorPallete = function (colorArray, tolerance) {
+  // for assembling color palette from array of raw rgb data from images
+  // tolerance is used to specify how different your resulting color palette can be. Higher value means less results with higher contrast.
+  var assembleColorPalette = function (colorArray, tolerance) {
     var distinctHues = [colorArray[0]]; // because it has to have something to compare to initially. Probably a better way to handle this.
 
     for (var i = 1; i < colorArray.length; i++) {
@@ -86,19 +84,41 @@ $(document).ready( function () {
       }
     }
 
-    // pare this down if it's too long.  Possibly with recursion
+    // TODO: Pare down results if it's too long.  Possibly with recursion.
     return distinctHues;
   };
 
-  var pallete = assembleColorPallete(colorData, 128);
+  var colorData = getColorData(example, 10);
 
-  console.log(pallete);
+  var getAverageColor = function (colorArray) {
+    var red = 0;
+    var green = 0;
+    var blue = 0;
 
-  for (var i = 0; i < pallete.length; i++) {
-    $('body').append('<div style="background-color:rgb(' + pallete[i] + ');width:200px;height:25px;"></div>');
+    for (var i = 0; i < colorArray.length; i++) {
+      red += colorArray[i][0];
+      green += colorArray[i][1];
+      blue += colorArray[i][2];
+    };
+
+    red = Math.round(red / colorArray.length);
+    green = Math.round(green / colorArray.length);
+    blue = Math.round(blue / colorArray.length);
+
+    return 'rgb(' + red + ', ' + green + ', ' + blue + ')';
+  };
+
+  var palette = assembleColorPalette(colorData, 255);
+
+  console.log(palette);
+
+  for (var i = 0; i < palette.length; i++) {
+    $('body').append('<div style="background-color:rgb(' + palette[i] + ');width:200px;height:25px;"></div>');
   }
 
-  var averageRGB = 'rgb(' + getColorData(example, 100)[0] + ')';
+  var averageRGB = getAverageColor(colorData);
+
+  console.log(averageRGB);
 
   $('#average').css('background-color', averageRGB);
 
