@@ -1,8 +1,6 @@
-image-sample
+CSS-sample
 ============
 
-Tool for sampling and analyzing color information from images using HTML5.
+Tool for sampling and analyzing graphic design information, such as color scheme and font pairings, from a given website using HTML5.
 
-Does not work for local files because of some same-origin policy thing.
-
-This repo is in a very very early pre-pre-pre-alpha state, do not expect a single thing to work at all.
+Does not work yet, just exists as a tiny proof of concept of one of the most minor features.
