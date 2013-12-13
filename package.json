@@ -1,0 +1,28 @@
+{
+  "name": "CSS-sample",
+  "version": "0.0.0",
+  "description": "general purpose css data miner for identifying design trends",
+  "main": "personal-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ehannum/image-sample.git"
+  },
+  "keywords": [
+    "node",
+    "css",
+    "datamine",
+    "color"
+  ],
+  "author": "Eric Hannum",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/ehannum/image-sample/issues"
+  },
+  "homepage": "https://github.com/ehannum/image-sample",
+  "engines": {
+    "node": "0.10.x"
+  }
+}

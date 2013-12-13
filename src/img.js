@@ -75,7 +75,7 @@ $(document).ready( function () {
       for (var j = 0; j < distinctHues.length; j++) {
         // probably a better way to do this one too:
         var contrast = (Math.abs(colorArray[i][0] - distinctHues[j][0])) + (Math.abs(colorArray[i][1] - distinctHues[j][1])) + (Math.abs(colorArray[i][2] - distinctHues[j][2]));
-        if(contrast < tolerance) { // ?????
+        if(contrast < tolerance) {
           distinct = false;
         }
       }
