@@ -20,15 +20,10 @@ var manageStaticFiles = function (req, res, headers) {
 
   headers['content-type'] = getContentType(requestedFile);
 
-  fs.readFile( __dirname + requestedFile, function (err, data) {
-    if (err) {
-      statusCode = 404;
-      res.end('CRITICAL MISS!');
-    }
-    res.writeHead(statusCode, headers);
-    res.end(data);
-  });
+  var data = fs.readFileSync( __dirname + requestedFile);
 
+  res.writeHead(statusCode, headers);
+  res.end(data);
 };
 
 var getContentType = function (requestedFile) {
@@ -59,9 +54,9 @@ var defaultCorsHeaders = {
 };
 
 // Setup server
-var port = 8080;
+var port = process.env.PORT || 8080;
 // var ip = '127.0.0.1';
 var server = http.createServer(requestHandler);
 
-//console.log('Listening on http://' + ip + ':' + port);
+console.log('Listening on http://localhost:' + port);
 server.listen(port);

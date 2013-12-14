@@ -108,17 +108,13 @@ $(document).ready( function () {
     return 'rgb(' + red + ', ' + green + ', ' + blue + ')';
   };
 
-  var palette = assembleColorPalette(colorData, 255);
-
-  console.log(palette);
+  var palette = assembleColorPalette(colorData, 200);
 
   for (var i = 0; i < palette.length; i++) {
     $('body').append('<div style="background-color:rgb(' + palette[i] + ');width:200px;height:25px;"></div>');
   }
 
   var averageRGB = getAverageColor(colorData);
-
-  console.log(averageRGB);
 
   $('#average').css('background-color', averageRGB);
 
