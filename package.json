@@ -4,7 +4,8 @@
   "description": "general purpose css data miner for identifying design trends",
   "main": "personal-server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node personal-server.js"
   },
   "repository": {
     "type": "git",
