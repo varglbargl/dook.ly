@@ -1,5 +1,4 @@
-$(document).ready( function () {
-
+exports.renderDownloadedImage = function (image) {
   // I did not write this next function, it will not be part of the final product (probably)
   // but just trust that it works.
   var findPos = function (obj) {
@@ -23,12 +22,21 @@ $(document).ready( function () {
     return ((r << 16) | (g << 8) | b).toString(16);
   };
 
+  $('#imageUrl').on('submit', function(e){
+    e.preventDefault();
+    $('#imageStorage').html('<img id="sample" src="' + image + '">')
+  });
+
   // image from html provided for testing and demo purposes
   // look for plant.png in /res
-  var example = document.getElementById('example');
-  var sample = document.getElementById('sample');
-  var context = example.getContext('2d');
-  context.drawImage(sample, 0, 0, 200, 200);
+  var renderImage = function () {
+    var example = document.getElementById('example');
+    var sample = document.getElementById('sample');
+    var context = example.getContext('2d');
+    context.drawImage(sample, 0, 0, 200, 200);
+  };
+
+  renderImage();
 
   // find the position of the mouse on an HTML5 canvas element and gathers single pixel color information
   // purely for demo purposes. There should be no need for jQuery in the final product.
@@ -118,4 +126,7 @@ $(document).ready( function () {
 
   $('#average').css('background-color', averageRGB);
 
-});
+  $('#refresh').click(function () {
+    renderImage();
+  });
+};

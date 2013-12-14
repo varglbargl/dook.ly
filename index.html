@@ -8,7 +8,11 @@
   <h1>dook.ly</h1>
   <h3>The colors, dook, the colors!</h3>
   <canvas id="example" width="200" height="200"></canvas>
-  <img id="sample" src="res/plant2.png" alt="image sample" width="0" height="0">
+  <form id="imageUrl" method="POST">
+    <input type="text" name="url" placeholder="Copy and paste link to an image!"></input>
+    <input type="submit" value="Fetch"></input>
+  </form>
+  <div id='imageStorage'></div>
   <div id="status"></div>
   <div id="color" style="width:100px;height:50px;display:inline-block"></div>
   <div id="compliment" style="width:100px;height:50px;display:inline-block"></div><br />
@@ -17,6 +21,5 @@
   sample color pallete:
 
   <script src="src/jquery/jquery.min.js"></script>
-  <script src="src/img.js"></script>
 </body>
 </html>
