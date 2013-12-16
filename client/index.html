@@ -9,17 +9,17 @@
 <!-- 
   <h1>dook.ly</h1>
   <h3>The colors, dook, the colors!</h3> -->
-  <form class="stop" onsubmit="stopRefresh()">
-    <input class="stop" onsubmit="stopRefresh()"></input>
+  <form method="GET" class="stop" onsubmit="stopRefresh()">
+    <input name="url" class="stop" onsubmit="stopRefresh()"></input>
   </form>
 
   <script>
-    console.log($('.stop'));
-    $('.stop').on('submit', function (e) {
-      e.preventDefault();
-      console.log('this happened.');
-      return false;
-    });
+    // console.log($('.stop'));
+    // $('.stop').on('submit', function (e) {
+    //   e.preventDefault();
+    //   console.log('this happened.');
+    //   return false;
+    // });
     var stopRefresh = function () {
       return false;
     };

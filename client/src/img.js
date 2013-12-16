@@ -23,8 +23,8 @@ $(document).ready(function (image) {
     return ((r << 16) | (g << 8) | b).toString(16);
   };
 
-  image from html provided for testing and demo purposes
-  look for plant.png in /res
+  // image from html provided for testing and demo purposes
+  // look for plant.png in /res
   var renderImage = function () {
     var example = $('#example').get();
     console.log(example)
