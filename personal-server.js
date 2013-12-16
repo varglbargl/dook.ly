@@ -61,7 +61,7 @@ var manageFiles = function (req, res) {
 
 var downloadPage = function(rurl, res){
   console.log(url.parse(rurl));
-  console.log('Downloading ', rurl);
+  console.log('Downloading html:', rurl);
   http.get(rurl, function(response){
 
     var pageData = '';
@@ -82,27 +82,63 @@ var savePage = function (page, rurl, res) {
     if( err ){
       console.log("Failed to create file for ", rurl);
     } else {
-      identifyCSS(localFile);
-      // document.write(file + " created.");
+      console.log(localFile + " created.");
+      identifyCSS(localFile, rurl);
     }
   });
 };
 
-var identifyCSS = function (file) {
+var identifyCSS = function (file, rurl, res) {
   console.log('Attempting to identify css of', file);
   var html = fs.readFileSync(file);
-  mineCSS(html);
+
+  // console.log(unescape(html.toString()));
+
+  var scriptTag = html.toString().split('.css')[0];
+
+  if (scriptTag.length > 1) {
+    scriptTag = scriptTag.split('href=');
+    scriptTag = scriptTag[scriptTag.length-1];
+  }
+
+  var css = ((scriptTag+'.css').replace("'", '').replace('"', ''));
+  var cssURL = url.resolve(rurl, css);
+  console.log('URL of CSS file believed to be', cssURL);
+  downloadCSS(cssURL, rurl, res);
 };
 
-var mineCSS = function (file) {
+var downloadCSS = function(rurl, res){
+  console.log(url.parse(rurl));
+  console.log('Downloading css:', rurl);
+  http.get(rurl, function(response){
+
+    var cssData = '';
+    response.on('data', function(chunk){
+      cssData += chunk;
+    });
+
+    response.on('end', function () {
+      //console.log(url)
+      saveCSS(cssData, rurl, res);
+    });
+  })
+};
+
+var saveCSS = function (file, rurl, res) {
+  var localFile = __dirname + '/res/' + 'css.txt';
+  fs.writeFile(localFile, file, function(err) {
+    if( err ){
+      console.log("Failed to create file for ", rurl);
+    } else {
+      mineCSS(localFile, res);
+      console.log(localFile + " created.");
+    }
+  });
+}
+
+var mineCSS = function (file, res) {
+  
   var results = {colors:[], fonts:[]};
-
-  var scriptTag = file.split('<style');
-
-  if (scriptTag.length > 2) {
-    scriptTag = scriptTag[1].split('src=');
-    
-  }
 
   assembleColorPalette(results.colors);
   // something with the fonts.
@@ -128,6 +164,7 @@ var assembleColorPalette = function (colorArray, tolerance) {
   }
 
   // TODO: Pare down results if it's too long.  Possibly with recursion.
+  console.log(distinctHues);
   return distinctHues;
 };
 
@@ -143,12 +180,15 @@ var rgbToHex = function (rgb) {
 var hexToRGB = function (hex) {
   var rgb = [];
 
-  if( hex.length === 7 ){
+  if( hex.length === 7 || hex.length === 4){
     hex = hex.slice(1);
   }
-  rgb.push(parseInt(hex[0]+''+hex[1],16));
-  rgb.push(parseInt(hex[2]+''+hex[3],16));
-  rgb.push(parseInt(hex[4]+''+hex[5],16));
+  if(hex.length === 3){
+    hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+  }
+  rgb.push(parseInt(hex[0]+hex[1], 16));
+  rgb.push(parseInt(hex[2]+hex[3], 16));
+  rgb.push(parseInt(hex[4]+hex[5], 16));
 
   return rgb;
 };
