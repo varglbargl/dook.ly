@@ -1,4 +1,5 @@
-exports.renderDownloadedImage = function (image) {
+$(document).ready(function (image) {
+
   // I did not write this next function, it will not be part of the final product (probably)
   // but just trust that it works.
   var findPos = function (obj) {
@@ -22,16 +23,12 @@ exports.renderDownloadedImage = function (image) {
     return ((r << 16) | (g << 8) | b).toString(16);
   };
 
-  $('#imageUrl').on('submit', function(e){
-    e.preventDefault();
-    $('#imageStorage').html('<img id="sample" src="' + image + '">')
-  });
-
-  // image from html provided for testing and demo purposes
-  // look for plant.png in /res
+  image from html provided for testing and demo purposes
+  look for plant.png in /res
   var renderImage = function () {
-    var example = document.getElementById('example');
-    var sample = document.getElementById('sample');
+    var example = $('#example').get();
+    console.log(example)
+    var sample = image;
     var context = example.getContext('2d');
     context.drawImage(sample, 0, 0, 200, 200);
   };
@@ -129,4 +126,4 @@ exports.renderDownloadedImage = function (image) {
   $('#refresh').click(function () {
     renderImage();
   });
-};
+});

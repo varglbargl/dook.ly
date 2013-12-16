@@ -2,7 +2,6 @@ var http = require('http');
 var path = require('path');
 var url  = require('url');
 var fs   = require('fs');
-var img  = require('./src/img.js');
 
 // -- FILE SERVER
 
@@ -39,49 +38,57 @@ var methodHandler = {
       file = '/index.html';
     }
 
-    var data = fs.readFileSync( __dirname + file);
+    var data = fs.readFileSync( __dirname + file );
     corsHeaders['content-type'] = getContentType(file);
 
     res.writeHead(200, corsHeaders);
     res.end(data);
   },
-  POST: function (rurl, res) {
-    debugger;
+  getImage: function (rurl, res) {
     downloadImage(rurl, res);
   }
 };
 
 var manageFiles = function (req, res) {
   var statusCode = 200;
-  methodHandler[req.method](req.url, res);
+  if( req.url.split('=')[0] === '/?url' ){
+    methodHandler.getImage(unescape(req.url.split('=')[1]), res);
+  } else {
+    methodHandler[req.method](req.url, res);
+  }
 };
 
 var downloadImage = function(rurl, res){
-  http.get({
-    host: rurl,
-    path: '/'
-  }, function(response){
+  console.log(url.parse(rurl));
+  console.log('Downloading ', rurl);
+  http.get(rurl, function(response){
+
     var imageData = '';
     response.on('data', function(chunk){
       imageData += chunk;
     });
-    response.on('end', function () { saveImage(imageData, url, res); });
+
+    response.on('end', function () {
+      //console.log(url)
+      saveImage(imageData, rurl, res);
+    });
   })
 };
 
 var serveImage = function (file) {
-  img.renderDownloadedImage(file);
+  return false;
 };
 
 var saveImage = function (image, rurl, res) {
-  var file = url.parse(rurl).pathname.split('/')[url.parse(rurl).pathname.length-1];
-  var localFile = __dirname + '/res' + file;
+  var filetype = url.parse(rurl).pathname.split('.')[url.parse(rurl).pathname.split('.')];
+  console.log(filetype, url.parse(rurl).pathname)
+  var localFile = __dirname + '/res/' + 'image' + filetype;
   fs.writeFile(localFile, image, function(err) {
     if( err ){
       console.log("Failed to create file for ", file);
     } else {
-      serveImage(file, localFile);
-      document.write(file + " created.");
+      serveImage('image' + filetype, localFile);
+      // document.write(file + " created.");
     }
   });
 };
