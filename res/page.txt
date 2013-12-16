@@ -35,18 +35,15 @@
         <a href="http://github.com/joyent/node"><img class="forkme" src="http://nodejs.org/images/forkme.png" alt="Fork me on GitHub"></a>
     </div>
 
-    <div id="quotes" class="clearfix"><h2>Node.js in the Industry</h2><ul><li class="storify"><img src="industry/data/storify/logo.png" alt="logo" height=34><p>Node allows our team to speak one language throughout the stack: JavaScript.
-We can use Chrome Inspector to inspect both our frontend and backend code.
-Magical.
-<br>
-<a href="http://storify.com">Xavier Damman</a>
-<br>
-<span>Cofounder/CEO</span>
+    <div id="quotes" class="clearfix"><h2>Node.js in the Industry</h2><ul><li class="fandist"><img src="industry/data/fandist/logo.png" alt="logo" height=34><p>
+  Node.js allowed us to create a highly scalable cloud based application
+  with ease. In addition its event-driven nature perfectly suited the
+  model of our realtime advocacy platform.
+  <br/>
+  <a href="http://fandi.st/">Paul Inman</a>
+  <br/>
+  <span>CTO</span>
 </p>
-</li>
-<li class="recruitics"><img src="industry/data/recruitics/logo.png" alt="logo" height=34><p>Node allowed us to rapidly develop and deploy a low latency horizontally scalable solution in record time. We look forward to continuing to leverage node in key parts of our systems as we continue to re-invent the recruiting world.<br />
-<a href="http://recruitics.com">Gus Spathis</a><br />
-<span>CTO</span></p>
 </li>
 <li class="cloud9"><img src="industry/data/cloud9/logo.png" alt="logo" height=34><p>Node.js allows us to build our real-time cloud IDE with a
 single language front to back. It makes life easier for both
@@ -56,13 +53,16 @@ us and our users to write, run, and debug code, anywhere, anytime.
 <br>
 <span>CTO</span></p>
 </li>
-<li class="yahoo"><img src="industry/data/yahoo/logo.png" alt="logo" height=34><p>Node.js is the execution core of Manhattan. Allowing
-developers to build one code base using one language – that is
-the nirvana for developers.
+<li class="recruitics"><img src="industry/data/recruitics/logo.png" alt="logo" height=34><p>Node allowed us to rapidly develop and deploy a low latency horizontally scalable solution in record time. We look forward to continuing to leverage node in key parts of our systems as we continue to re-invent the recruiting world.<br />
+<a href="http://recruitics.com">Gus Spathis</a><br />
+<span>CTO</span></p>
+</li>
+<li class="shopetti"><img src="industry/data/shopetti/logo.png" alt="logo" height=34><p>
+Node holds our entire back-end, providing an elastic scalable cluster of servers to support our web front-end and provides a REST API for our partners. Node completes our are all JavaScript/JSON cross platforms stack, Web, Mobile, Extension and Node, allowing our development team maximum agility and portability.
 <br>
-<a href="http://developer.yahoo.com/blogs/ydn/posts/2011/11/yahoo-announces-cocktails-%E2%80%93-shaken-not-stirred/">Renaud Waldura</a>
+<a href="https://www.shopetti.com/">Guy Korland</a>
 <br>
-<span>Sr. Product Manager, Cocktail</span></p>
+<span>CTO</span></p>
 </li></ul><h2 style="clear:both"><a href="/industry/">More...</a></h2></div>
 
     <div id="content" class="clearfix">

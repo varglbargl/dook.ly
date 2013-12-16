@@ -1,0 +1,85 @@
+var fs = require('fs');
+var url = require('url');
+var http = require('http')
+var colors = require('./colorHelpers.js')
+
+exports.identifyCSS = function (file, rurl, res) {
+  console.log('Attempting to identify css of', file);
+  var html = fs.readFileSync(file);
+
+  // console.log(unescape(html.toString()));
+
+  var scriptTag = html.toString().split('.css')[0];
+
+  if (scriptTag.length > 1) {
+    scriptTag = scriptTag.split('href=');
+    scriptTag = scriptTag[scriptTag.length-1];
+  }
+
+  var css = ((scriptTag+'.css').replace("'", '').replace('"', ''));
+  var cssURL = url.resolve(rurl, css);
+  console.log('URL of CSS file believed to be', cssURL);
+  downloadCSS(cssURL, rurl, res);
+};
+
+var downloadCSS = function(rurl, res){
+  //console.log(url.parse(rurl));
+  console.log('Downloading css:', rurl);
+  http.get(rurl, function(response){
+
+    var cssData = '';
+    response.on('data', function(chunk){
+      cssData += chunk;
+    });
+
+    response.on('end', function () {
+      //console.log(url)
+      saveCSS(cssData, rurl, res);
+    });
+  })
+};
+
+var saveCSS = function (file, rurl, res) {
+  var localFile = __dirname + '/res/' + 'css.txt';
+  fs.writeFile(localFile, file, function(err) {
+    if( err ){
+      console.log("Failed to create file for ", rurl);
+    } else {
+      console.log(localFile + " created.");
+      mineCSS(localFile, res);
+    }
+  });
+}
+
+var mineCSS = function (file, res) {
+  
+  var results = {colors:[], fonts:[]};
+  var cssContents = fs.readFileSync(file);
+  var hexParsed = cssContents.toString().split(': #');
+  var rgbaParsed = cssContents.toString().split(': rgba(');
+  var rgbParsed = cssContents.toString().split(': rgb(');
+
+  for (var i = 1; i < hexParsed.length; i+=2) {
+    results.colors.push(colors.hexToRGB(hexParsed[i].slice(0, 6).split(';')[0]));
+  };
+
+  for (var j = 1; j < rgbParsed.length; j+=2) {
+    var rgbValues = rgbParsed[j].split(',');
+    results.colors.push( [parseInt(rgbValues[0]), parseInt(rgbValues[1]), parseInt(rgbValues[2])] );
+  };
+
+  for (var k = 1; k < rgbaParsed.length; k+=2) {
+    var rgbaValues = rgbaParsed[k].split(',');
+    results.colors.push( [parseInt(rgbaValues[0]), parseInt(rgbaValues[1]), parseInt(rgbaValues[2])] );
+  };
+
+  console.log('Identified', results.colors.length, 'colors in file.');
+
+  if (results.colors.length > 5){
+    results.colors = colors.assembleColorPalette(results.colors, 255);
+  } else {
+    console.log('Not enough colors available for complete color pallete.');
+  };
+
+  // TODO: Something with the fonts.
+};
