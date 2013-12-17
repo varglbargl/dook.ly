@@ -50,12 +50,12 @@ var saveCSS = function (file, rurl, res) {
       console.log("Failed to create file for ", rurl);
     } else {
       console.log(localFile + " created.");
-      mineCSS(localFile, res);
+      mineCSS(localFile, rurl, res);
     }
   });
 }
 
-var mineCSS = function (file, res) {
+var mineCSS = function (file, rurl, res) {
   
   var results = {colors:[], fonts:[]};
   var cssContents = fs.readFileSync(file);
@@ -82,13 +82,6 @@ var mineCSS = function (file, res) {
 
   console.log('Identified', results.colors.length, 'color(s) in file.');
 
-  if (results.colors.length > 5){
-    results.colors = colors.assembleColorPalette(results.colors);
-  } else {
-    console.log('Not enough colors available for complete color pallete.');
-  };
-
-
   // fonts
 
   var fontParsed = cssContents.toString().split('font-family: ');
@@ -96,7 +89,7 @@ var mineCSS = function (file, res) {
     results.fonts.push(fontParsed[i].split(';')[0].split(',')[0].replace("'", '').replace('"', '').replace("'", '').replace('"', ''));
   }
 
-  console.log('Isentified', results.fonts.length, 'font(s) in file.');
+  console.log('Identified', results.fonts.length, 'font(s) in file.');
 
-  images.identifyImages(cssData, results, res);
+  images.identifyImages(cssContents, results, rurl, res);
 };
