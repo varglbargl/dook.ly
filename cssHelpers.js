@@ -10,22 +10,28 @@ exports.identifyCSS = function (file, rurl, res) {
   var html = fs.readFileSync(file);
 
   var findLinkTags = function (html) {
-    var result = '';
+    var result = [];
+    html = html.toString().split('.css');
 
+    while (Array.isArray(html) && html.length !== 0) {
+      console.log('this happened.');
+      var linkTag = html[0].split('=');
+      linkTag = linkTag[linkTag.length-1];
+      var css = (linkTag+'.css').replace("'", '').replace('"', '').replace('\\', '').replace(' ', '').split('http://');
+      css = css[css.length-1];
+      var cssURL = unescape(url.resolve(rurl, css));
+      html = html.slice(1);
+      if (cssURL.indexOf('>') === -1 && cssURL.indexOf('<') === -1 && cssURL.indexOf(' ') === -1){
+        result.push(cssURL);
+      }
+    }
     return result;
   };
 
-  var linkTag = html.toString().split('.css')[0];
+  var results = findLinkTags(html);
+  console.log('URLs of CSS file believed to be', results);
 
-  if (linkTag.length > 1) {
-    linkTag = linkTag.split('href=');
-    linkTag = linkTag[linkTag.length-1];
-  }
-
-  var css = (linkTag+'.css').replace("'", '').replace('"', '');
-  var cssURL = unescape(url.resolve(rurl, css));
-  console.log('URL of CSS file believed to be', cssURL);
-  downloadCSS(cssURL, res);
+  //downloadCSS(cssURL, res);
 };
 
 var downloadCSS = function(rurl, res){
@@ -62,23 +68,30 @@ var mineCSS = function (file, rurl, res) {
 
   // colors
 
-  var hexParsed = cssContents.toString().split(': #');
-  var rgbaParsed = cssContents.toString().split(': rgba(');
-  var rgbParsed = cssContents.toString().split(': rgb(');
+  var hexParsed = cssContents.toString().split(/\:\s?\#/);
+  var rgbaParsed = cssContents.toString().split(/\:\s?rgba\(/);
+  var rgbParsed = cssContents.toString().split(/\:\s?rgb\(/);
 
   for (var i = 1; i < hexParsed.length; i+=2) {
-    results.colors.push(colors.hexToRGB(hexParsed[i].slice(0, 6).split(';')[0]));
+    var thisHex = hexParsed[i].slice(0, 6).split(';')[0].toString();
+    if((/[a-fA-F0-9]/).test(thisHex)){
+      results.colors.push(colors.hexToRGB(thisHex));
+    }
   };
 
   for (var j = 1; j < rgbParsed.length; j+=2) {
     var rgbValues = rgbParsed[j].split(',');
-    results.colors.push( [parseInt(rgbValues[0]), parseInt(rgbValues[1]), parseInt(rgbValues[2])] );
-  };
+    if(rgbaValues.length === 3){
+      results.colors.push( [parseInt(rgbValues[0]), parseInt(rgbValues[1]), parseInt(rgbValues[2])] );
+    }
+  }
 
   for (var k = 1; k < rgbaParsed.length; k+=2) {
     var rgbaValues = rgbaParsed[k].split(',');
-    results.colors.push( [parseInt(rgbaValues[0]), parseInt(rgbaValues[1]), parseInt(rgbaValues[2])] );
-  };
+    if(rgbaValues.length === 4){
+      results.colors.push( [parseInt(rgbaValues[0]), parseInt(rgbaValues[1]), parseInt(rgbaValues[2])] );
+    }
+  }
 
   results.colors = server.unique(results.colors);
 
@@ -95,11 +108,12 @@ var mineCSS = function (file, rurl, res) {
 
   console.log('Identified', results.fonts.length, 'font(s) in file.');
 
-  //images.identifyImages(cssContents, results, rurl, res);
-  if (results.colors.length >= 6) {
+  if (results.colors.length > 6) {
     results.colors = colors.assembleColorPalette(results.colors);
   } else {
-    console.log('Not enough colors to assemble full color pallete.')
+    console.log('Not enough colors to assemble full color pallete.');
   }
+
+  //images.identifyImages(cssContents, results, rurl, res);
   server.returnData(res, results);
 };

@@ -20,9 +20,9 @@ exports.assembleColorPalette = function (colorArray, tolerance) {
   }
 
   if (distinctHues.length > 6){
-    distinctHues = exports.assembleColorPalette(distinctHues, tolerance*1.05);
+    distinctHues = exports.assembleColorPalette(distinctHues, tolerance*1.1);
   } else if (distinctHues.length < 6) {
-    distinctHues = exports.assembleColorPalette(colorArray, tolerance*0.95);
+    distinctHues = exports.assembleColorPalette(colorArray, tolerance*0.9);
   } else {
     console.log('Identified 6 most distinct hues.');
   }
@@ -50,10 +50,15 @@ exports.rgbToHex = function (rgb) {
 };
 
 exports.hexToRGB = function (hex) {
+  hex = hex.replace(/\W\D/, '');
+
   var rgb = [];
 
-  if( hex.length === 7 || hex.length === 4){
-    hex = hex.slice(1);
+  if( hex.length > 6){
+    hex = hex.slice(0, 6);
+  }
+  if( hex.length < 6 && hex.length > 3){
+    hex = hex.slice(0, 3);
   }
   if(hex.length === 3){
     hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
