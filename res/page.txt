@@ -35,36 +35,36 @@
         <a href="http://github.com/joyent/node"><img class="forkme" src="http://nodejs.org/images/forkme.png" alt="Fork me on GitHub"></a>
     </div>
 
-    <div id="quotes" class="clearfix"><h2>Node.js in the Industry</h2><ul><li class="strongloop"><img src="industry/data/strongloop/logo.png" alt="logo" height=34><p>Node.js is what our customers use to build enterprise-connected backends
-to mobile applications. The event-driven model and JavaScript for services
-orchestration makes mobile APIs simple and easy to create.
+    <div id="quotes" class="clearfix"><h2>Node.js in the Industry</h2><ul><li class="microsoft"><img src="industry/data/microsoft/logo.png" alt="logo" height=34><p>Node gives Azure users the first end-to-end JavaScript
+experience for the development of a whole new class of real-time
+applications.
 <br>
-<a href="http://strongloop.com/">Albert Tsang</a>
+<a href="https://www.windowsazure.com/en-us/develop/nodejs">Claudio Caldato</a>
 <br>
-<span>Co-Founder, CTO</span>
+<span>Principal Program Manager, Microsoft Open Technologies, Inc.</span></p>
+</li>
+<li class="uber"><img src="industry/data/uber/logo.png" alt="logo" height=34><p>Node has allowed us to build a global, real-time logistics
+system without having to think twice about locking or concurrency issues.
+<br>
+<a href="http://uber.com">Curtis Chambers</a>
+<br>
+<span>Engineering Manager</span>
 </p>
 </li>
-<li class="wsd-europe"><img src="industry/data/wsd-europe/logo.png" alt="logo" height=34><p>
-	Node.js helps us to see web sites from different point of view. We wrote our own framework for Node.js and we use it in web design &amp; development process to build web sites and online shops.
-	<br>
-	<a href="http://www.wsd-europe.com">Peter Sirka</a>
-	<br>
-	<span>Senior Web Developer, WSD | Technology &amp; Solutions</span>
-</p></li>
-<li class="serverfire"><img src="industry/data/serverfire/logo.png" alt="logo" height=34><p>Node.js did help us create lot of amazing APP in less than 2 weeks.
-Happy customer and profit for our company. Thank you Node.js!
-<br><a href="http://serverfire.net">Alireza Aboutalebi</a>
+<li class="whentomanage"><img src="industry/data/whentomanage/logo.png" alt="logo" height=34><p>
+The enthusiastic developer community and the ability to provide async events with simple horizontal scalability is the reason we chose Node to power our WhenToManage Peach PaaS offering.
 <br>
-<span>CEO</span></p>
+<a href="http://www.whentomanage.com/products/peach-platform/">Rob Raux</a>
+<br>
+<span>Lead Engineer</span></p>
 </li>
-<li class="spanishdict"><img src="industry/data/spanishdict/logo.png" alt="logo" height=34><p>Node.js has revolutionized our backend APIs.  We now can serve tens of
-millions of global language learners every year with near real-time
-Spanish-English translations.
+<li class="cloud9"><img src="industry/data/cloud9/logo.png" alt="logo" height=34><p>Node.js allows us to build our real-time cloud IDE with a
+single language front to back. It makes life easier for both
+us and our users to write, run, and debug code, anywhere, anytime.
 <br>
-<a href="http://www.spanishdict.com">Chris</a>
+<a href="http://c9.io">Rik Arends</a>
 <br>
-<span>CEO</span>
-</p>
+<span>CTO</span></p>
 </li></ul><h2 style="clear:both"><a href="/industry/">More...</a></h2></div>
 
     <div id="content" class="clearfix">

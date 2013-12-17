@@ -95,5 +95,11 @@ var mineCSS = function (file, rurl, res) {
 
   console.log('Identified', results.fonts.length, 'font(s) in file.');
 
-  images.identifyImages(cssContents, results, rurl, res);
+  //images.identifyImages(cssContents, results, rurl, res);
+  if (results.colors.length >= 6) {
+    results.colors = colors.assembleColorPalette(results.colors);
+  } else {
+    console.log('Not enough colors to assemble full color pallete.')
+  }
+  server.returnData(res, results);
 };

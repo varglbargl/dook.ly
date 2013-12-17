@@ -104,9 +104,6 @@ exports.unique = function (array) {
 
 // Lo-Dash: The cure for your async headaches
 exports.after = function (n, func) {
-  if (!isFunction(func)) {
-    throw new TypeError;
-  }
   return function() {
     if (--n < 1) {
       return func.apply(this, arguments);

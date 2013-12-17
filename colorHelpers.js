@@ -24,7 +24,7 @@ exports.assembleColorPalette = function (colorArray, tolerance) {
   } else if (distinctHues.length < 6) {
     distinctHues = exports.assembleColorPalette(colorArray, tolerance*0.95);
   } else {
-    console.log('Identified distinct hues:', distinctHues);
+    console.log('Identified 6 most distinct hues.');
   }
   return distinctHues;
 };

@@ -13,13 +13,42 @@
     <input class="stop urlField"></input>
     <input class="stop" type="submit">
   </form>
+  <div id="loadry">
+    <h2>Loading</h2>
+    <?xml version="1.0" encoding="utf-8"?>
+    <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <path fill="none" stroke="#000" stroke-width="5" d="M 59.125,32 A 27.0625,27 0 1 1 5,32 27.0625,27 0 1 1 59.125,32 z" />
+        <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="square" d="m 32.0625,32 0,-17.645625">
+          <animateTransform attributeName="transform" 
+                            attributeType="XML"
+                            type="rotate" 
+                            from="0 32 32" 
+                            to="360 32 32" 
+                            dur="0.5s"
+                            repeatCount="indefinite"/>
+        </path>
+        <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="square" d="m 45.556603,31.84375 -13.337853,0">
+          <animateTransform attributeName="transform" 
+                            attributeType="XML"
+                            type="rotate" 
+                            from="0 32 32" 
+                            to="360 32 32" 
+                            dur="6s"
+                            repeatCount="indefinite"/>
+        </path>
+      </g>
+    </svg>
+  </div>
 
   <div id="colorPalette"></div>
 
   <script>
+    $('#colorPalette').hide();
     $('.stop').on('submit', function (e) {
       e.preventDefault();
       $('#colorPalette').html('').hide();
+      $('#loadry').show();
 
       $.ajax({
         data: {
@@ -28,6 +57,7 @@
         method: 'GET',
         success: function (data) {
           data = JSON.parse(data);
+          $('#loadry').hide();
           $('#colorPalette').show();
           for (var i = 0; i < data.colors.length; i++) {
             $('#colorPalette').append('<div class="palette" style="background-color: rgb(' + data.colors[i] + ')"></div>');

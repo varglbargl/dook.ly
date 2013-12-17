@@ -1,5 +1,6 @@
 body {
   padding: 30px;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 h1 {
@@ -10,9 +11,27 @@ h1 {
   color: #56D;
 }
 
+h2 {
+  font-size: 3em;
+  position: absolute;
+  left: 0px;
+  top: -10px;
+}
+
+svg {
+  position: absolute;
+  top: 30px;
+  left: 200px;
+}
+
+#loadry {
+  position: relative;
+  display: none;
+}
+
 #colorPalette {
   border: 1px solid #333;
-  display: none;
+  display: inline-block;
 }
 
 .palette {
