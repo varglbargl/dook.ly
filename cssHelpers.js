@@ -76,62 +76,68 @@ var downloadCSS = function(rurls, res){
 
 var mineCSS = function (files, rurls, res) {
 
-  console.log('Proceeding to mine', files.length, 'HTML files.');
-  return;
+  console.log('Proceeding to analyze', files.length, 'CSS files.');
   
   var results = {colors:[], fonts:[]};
-  var cssContents = fs.readFileSync(file);
 
-  // colors
+  var parseCSS = function (file) {
+    // colors
+    var cssContents = fs.readFileSync(file);
+    var hexParsed = cssContents.toString().split(/\:\s?\#/);
+    var rgbaParsed = cssContents.toString().split(/\:\s?rgba\(/);
+    var rgbParsed = cssContents.toString().split(/\:\s?rgb\(/);
 
-  var hexParsed = cssContents.toString().split(/\:\s?\#/);
-  var rgbaParsed = cssContents.toString().split(/\:\s?rgba\(/);
-  var rgbParsed = cssContents.toString().split(/\:\s?rgb\(/);
-
-  for (var i = 1; i < hexParsed.length; i+=2) {
-    var thisHex = hexParsed[i].slice(0, 6).split(';')[0].toString();
-    if((/[a-fA-F0-9]/).test(thisHex)){
-      results.colors.push(colors.hexToRGB(thisHex));
+    for (var i = 1; i < hexParsed.length; i+=2) {
+      var thisHex = hexParsed[i].slice(0, 6).split(';')[0].toString();
+      if((/[a-fA-F0-9]/).test(thisHex)){
+        results.colors.push(colors.hexToRGB(thisHex));
+      }
     }
+
+    for (var j = 1; j < rgbParsed.length; j+=2) {
+      var rgbValues = rgbParsed[j].split(',');
+      if(rgbaValues.length === 3){
+        results.colors.push( [parseInt(rgbValues[0]), parseInt(rgbValues[1]), parseInt(rgbValues[2])] );
+      }
+    }
+
+    for (var k = 1; k < rgbaParsed.length; k+=2) {
+      var rgbaValues = rgbaParsed[k].split(',');
+      if(rgbaValues.length === 4){
+        results.colors.push( [parseInt(rgbaValues[0]), parseInt(rgbaValues[1]), parseInt(rgbaValues[2])] );
+      }
+    }
+
+    if (results.colors.length > 6) {
+      results.colors = colors.assembleColorPalette(results.colors);
+    } else {
+      console.log('Not enough colors to assemble full color pallete.');
+    }
+
+    // fonts
+
+    var fontParsed = cssContents.toString().split('font-family: ');
+    for (var i = 1; i < fontParsed.length; i+=2) {
+      results.fonts.push(fontParsed[i].split(';')[0].split(',')[0].replace("'", '').replace('"', '').replace("'", '').replace('"', ''));
+    }
+    results.fonts = server.unique(results.fonts);
+
+    proceedToCheckout(res, results);
   };
 
-  for (var j = 1; j < rgbParsed.length; j+=2) {
-    var rgbValues = rgbParsed[j].split(',');
-    if(rgbaValues.length === 3){
-      results.colors.push( [parseInt(rgbValues[0]), parseInt(rgbValues[1]), parseInt(rgbValues[2])] );
-    }
+  var proceedToCheckout = server.after(files.length, function (res, results) {
+    results.colors = server.unique(results.colors);
+    console.log('Identified', results.fonts.length, 'font(s) in file.');
+    console.log('Identified', results.colors.length, 'color(s) in file.');
+
+    clearTempFiles();
+    //images.identifyImages(cssContents, results, rurl, res);
+    server.returnData(res, results);
+  });
+
+  for (var i = 0; i < files.length; i++) {
+    parseCSS(files[i]);
   }
-
-  for (var k = 1; k < rgbaParsed.length; k+=2) {
-    var rgbaValues = rgbaParsed[k].split(',');
-    if(rgbaValues.length === 4){
-      results.colors.push( [parseInt(rgbaValues[0]), parseInt(rgbaValues[1]), parseInt(rgbaValues[2])] );
-    }
-  }
-
-  results.colors = server.unique(results.colors);
-
-  console.log('Identified', results.colors.length, 'color(s) in file.');
-
-  // fonts
-
-  var fontParsed = cssContents.toString().split('font-family: ');
-  for (var i = 1; i < fontParsed.length; i+=2) {
-    results.fonts.push(fontParsed[i].split(';')[0].split(',')[0].replace("'", '').replace('"', '').replace("'", '').replace('"', ''));
-  }
-
-  results.fonts = server.unique(results.fonts);
-
-  console.log('Identified', results.fonts.length, 'font(s) in file.');
-
-  if (results.colors.length > 6) {
-    results.colors = colors.assembleColorPalette(results.colors);
-  } else {
-    console.log('Not enough colors to assemble full color pallete.');
-  }
-
-  //images.identifyImages(cssContents, results, rurl, res);
-  server.returnData(res, results);
 };
 
 var clearTempFiles = function () {
