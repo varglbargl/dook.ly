@@ -5,8 +5,11 @@ var colors = require('./colorHelpers.js');
 var server = require('./personal-server.js');
 var images = require('./imageHelpers.js');
 
+var tempFiles = [];
+
 exports.identifyCSS = function (file, rurl, res) {
   console.log('Attempting to identify css of', file);
+  tempFiles.push(file);
   var html = fs.readFileSync(file);
 
   var findLinkTags = function (html) {
@@ -14,7 +17,6 @@ exports.identifyCSS = function (file, rurl, res) {
     html = html.toString().split('.css');
 
     while (Array.isArray(html) && html.length !== 0) {
-      console.log('this happened.');
       var linkTag = html[0].split('=');
       linkTag = linkTag[linkTag.length-1];
       var css = (linkTag+'.css').replace("'", '').replace('"', '').replace('\\', '').replace(' ', '').split('http://');
@@ -31,37 +33,51 @@ exports.identifyCSS = function (file, rurl, res) {
   var results = findLinkTags(html);
   console.log('URLs of CSS file believed to be', results);
 
-  //downloadCSS(cssURL, res);
+  downloadCSS(results, res);
 };
 
-var downloadCSS = function(rurl, res){
-  console.log('Downloading css:', rurl);
-  http.get(rurl, function(response){
+var downloadCSS = function(rurls, res){
+  for (var i = 0; i < rurls.length; i++) {
+    console.log('Downloading css:', rurls[i]);
+    http.get(rurls[i], function (response) {
 
-    var cssData = '';
-    response.on('data', function(chunk){
-      cssData += chunk;
-    });
+      var cssData = '';
+      response.on('data', function (chunk) {
+        cssData += chunk;
+      });
 
-    response.on('end', function () {
-      saveCSS(cssData, rurl, res);
+      response.on('end', function () {
+        saveCSS(cssData, rurls[i], res);
+      });
     });
+  }
+
+  var localFiles = [];
+
+  var proceedToMining = server.after(rurls.length, function (localFiles, rurls, res) {
+    mineCSS(localFiles, rurls, res);
   })
+
+  var saveCSS = function (file, rurl, res) {
+    var fileName = new Date().getTime();
+    var localFile = __dirname + '/res/' + fileName + '.txt';
+    fs.writeFile(localFile, file, function(err) {
+      if( err ){
+        console.log("Failed to create file for ", rurl);
+      } else {
+        console.log(localFile, "created.");
+        localFiles.push(localFile);
+        tempFiles.push(localFile);
+        proceedToMining(localFiles, rurls, res);
+      }
+    });
+  };
 };
 
-var saveCSS = function (file, rurl, res) {
-  var localFile = __dirname + '/res/' + 'css.txt';
-  fs.writeFile(localFile, file, function(err) {
-    if( err ){
-      console.log("Failed to create file for ", rurl);
-    } else {
-      console.log(localFile + " created.");
-      mineCSS(localFile, rurl, res);
-    }
-  });
-}
+var mineCSS = function (files, rurls, res) {
 
-var mineCSS = function (file, rurl, res) {
+  console.log('Proceeding to mine', files.length, 'HTML files.');
+  return;
   
   var results = {colors:[], fonts:[]};
   var cssContents = fs.readFileSync(file);
@@ -116,4 +132,16 @@ var mineCSS = function (file, rurl, res) {
 
   //images.identifyImages(cssContents, results, rurl, res);
   server.returnData(res, results);
+};
+
+var clearTempFiles = function () {
+  for (var i = 0; i < tempFiles.length; i++) {
+    fs.unlink(tempFiles[i], function (err) {
+      if (err) {
+        console.log('Failed to delete file:', tempFiles[i]);
+      } else {
+        console.log(tempFiles[i], 'successfully deleted.');
+      }
+    });
+  }
 };
