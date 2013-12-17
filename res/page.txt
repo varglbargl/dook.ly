@@ -35,38 +35,37 @@
         <a href="http://github.com/joyent/node"><img class="forkme" src="http://nodejs.org/images/forkme.png" alt="Fork me on GitHub"></a>
     </div>
 
-    <div id="quotes" class="clearfix"><h2>Node.js in the Industry</h2><ul><li class="jaleoo"><img src="industry/data/jaleoo/logo.png" alt="logo" height=34><p>All our APIs on the server side are built in Node, looking for performance and scalability. It allows us to execute many independent requests from our mobile apps in cheap / low level servers.
+    <div id="quotes" class="clearfix"><h2>Node.js in the Industry</h2><ul><li class="strongloop"><img src="industry/data/strongloop/logo.png" alt="logo" height=34><p>Node.js is what our customers use to build enterprise-connected backends
+to mobile applications. The event-driven model and JavaScript for services
+orchestration makes mobile APIs simple and easy to create.
 <br>
-<a href="https://www.jaleoo.com/">Israel Cardenas</a>
+<a href="http://strongloop.com/">Albert Tsang</a>
 <br>
-<span>CTO</span></p>
-</li>
-<li class="chess"><img src="industry/data/chess/logo.png" alt="logo" height=34><p>
-  Chess is an online game available on facebook.com and fully developed with Node.js. 
-  It offers a gaming experience innovative, fast and in real time.
-  <br/>
-  <a href="https://apps.facebook.com/the-chess-game/">Julien Simonet</a>
-  <br/>
-  <span>Game</span>
+<span>Co-Founder, CTO</span>
 </p>
 </li>
-<li class="transloadit"><img src="industry/data/transloadit/logo.png" alt="logo" height=34><p>Node.js allows us to execute our many independent
-background processes in a non-blocking way. This is
-essential to make file uploading and encoding the way
-we do it a great user experience.
+<li class="wsd-europe"><img src="industry/data/wsd-europe/logo.png" alt="logo" height=34><p>
+	Node.js helps us to see web sites from different point of view. We wrote our own framework for Node.js and we use it in web design &amp; development process to build web sites and online shops.
+	<br>
+	<a href="http://www.wsd-europe.com">Peter Sirka</a>
+	<br>
+	<span>Senior Web Developer, WSD | Technology &amp; Solutions</span>
+</p></li>
+<li class="serverfire"><img src="industry/data/serverfire/logo.png" alt="logo" height=34><p>Node.js did help us create lot of amazing APP in less than 2 weeks.
+Happy customer and profit for our company. Thank you Node.js!
+<br><a href="http://serverfire.net">Alireza Aboutalebi</a>
 <br>
-<a href="http://transloadit.com">Tim Koschuetzki</a>
-<br>
-<span>Co-Founder</span>
-</p>
+<span>CEO</span></p>
 </li>
-<li class="frisb"><img src="industry/data/frisb/logo.png" alt="logo" height=34><p>
-    Node.js delivered multiple orders of magnitude in performance over any other software framework we tested with its single event loop and non blocking IO.
-    We love Node.
-    <br />
-    <a href="http://frisB.com">Ashley Brener</a><br />
-    <span>VP Engineering</span>
-</p></li></ul><h2 style="clear:both"><a href="/industry/">More...</a></h2></div>
+<li class="spanishdict"><img src="industry/data/spanishdict/logo.png" alt="logo" height=34><p>Node.js has revolutionized our backend APIs.  We now can serve tens of
+millions of global language learners every year with near real-time
+Spanish-English translations.
+<br>
+<a href="http://www.spanishdict.com">Chris</a>
+<br>
+<span>CEO</span>
+</p>
+</li></ul><h2 style="clear:both"><a href="/industry/">More...</a></h2></div>
 
     <div id="content" class="clearfix">
             <div id="column1">

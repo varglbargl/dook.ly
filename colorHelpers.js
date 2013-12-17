@@ -1,5 +1,5 @@
-// for assembling color palette from array of raw rgb data from images
-// tolerance is used to specify how different your resulting color palette can be. Higher value means less results with higher contrast.
+// for assembling color palette from array of raw rgb
+// tolerance is used to specify how different your resulting color should can be. Higher value means less results with higher contrast.
 exports.assembleColorPalette = function (colorArray, tolerance) {
   tolerance = tolerance || 255;
   var distinctHues = [colorArray[0]]; // because it has to have something to compare to initially. Probably a better way to handle this.
@@ -7,8 +7,9 @@ exports.assembleColorPalette = function (colorArray, tolerance) {
   for (var i = 1; i < colorArray.length; i++) {
     var distinct = true;
     for (var j = 0; j < distinctHues.length; j++) {
-      // probably a better way to do this one too:
+      // probably a better way to do this one too.
       var contrast = (Math.abs(colorArray[i][0] - distinctHues[j][0])) + (Math.abs(colorArray[i][1] - distinctHues[j][1])) + (Math.abs(colorArray[i][2] - distinctHues[j][2]));
+      // actually it seem to work really well...
       if(contrast < tolerance) {
         distinct = false;
       }

@@ -90,6 +90,8 @@ exports.returnData = function (res, data) {
   res.end(JSON.stringify(data));
 }
 
+// -- HELPERS
+
 exports.unique = function (array) {
   for (var i = 0; i < array.length; i++) {
     if (array.indexOf(array[i], i+1) !== -1){
@@ -99,6 +101,18 @@ exports.unique = function (array) {
   }
   return array;
 }
+
+// Lo-Dash: The cure for your async headaches
+exports.after = function (n, func) {
+  if (!isFunction(func)) {
+    throw new TypeError;
+  }
+  return function() {
+    if (--n < 1) {
+      return func.apply(this, arguments);
+    }
+  };
+};
 
 // -- CORS!
 
