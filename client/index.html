@@ -41,30 +41,11 @@
     </svg>
   </div>
 
-  <div id="colorPalette"></div>
+  <div id="colorPalette" class="column">
+  </div>
+  
+  <div id="fonts" class="column">
+  </div>
 
-  <script>
-    $('#colorPalette').hide();
-    $('.stop').on('submit', function (e) {
-      e.preventDefault();
-      $('#colorPalette').html('').hide();
-      $('#loadry').show();
-
-      $.ajax({
-        data: {
-          url: $('.urlField').val()
-        },
-        method: 'GET',
-        success: function (data) {
-          data = JSON.parse(data);
-          $('#loadry').hide();
-          $('#colorPalette').show();
-          for (var i = 0; i < data.colors.length; i++) {
-            $('#colorPalette').append('<div class="palette" style="background-color: rgb(' + data.colors[i] + ')"></div>');
-          };
-        }  
-      });
-    });
-  </script>
 </body>
 </html>

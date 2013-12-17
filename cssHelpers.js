@@ -108,12 +108,6 @@ var mineCSS = function (files, rurls, res) {
       }
     }
 
-    if (results.colors.length > 6) {
-      results.colors = colors.assembleColorPalette(results.colors);
-    } else {
-      console.log('Not enough colors to assemble full color pallete.');
-    }
-
     // fonts
 
     var fontParsed = cssContents.toString().split('font-family: ');
@@ -130,6 +124,12 @@ var mineCSS = function (files, rurls, res) {
     console.log('Identified', results.fonts.length, 'font(s) in file.');
     console.log('Identified', results.colors.length, 'color(s) in file.');
 
+    if (results.colors.length > 6) {
+      results.colors = colors.assembleColorPalette(results.colors);
+    } else {
+      console.log('Not enough colors to assemble full color pallete.');
+    }
+
     clearTempFiles();
     //images.identifyImages(cssContents, results, rurl, res);
     server.returnData(res, results);
@@ -142,12 +142,12 @@ var mineCSS = function (files, rurls, res) {
 
 var clearTempFiles = function () {
   for (var i = 0; i < tempFiles.length; i++) {
+    console.log('Deleting temporary file', tempFiles[i]);
     fs.unlink(tempFiles[i], function (err) {
       if (err) {
-        console.log('Failed to delete file:', tempFiles[i]);
-      } else {
-        console.log(tempFiles[i], 'successfully deleted.');
+        console.log('Failed to delete file');
       }
     });
   }
+  tempFiles = [];
 };

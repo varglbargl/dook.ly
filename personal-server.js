@@ -85,6 +85,10 @@ var savePage = function (page, rurl, res) {
 };
 
 exports.returnData = function (res, data) {
+  for (var i = 0; i < data.colors.length; i++) {
+    data.colors[i] = colors.rgbToHex(data.colors[i]);
+  };
+  console.log('returning colors', data.colors, 'and fonts', data.fonts);
   var headers = corsHeaders;
   res.writeHead(200, headers);
   res.end(JSON.stringify(data));

@@ -34,7 +34,11 @@ svg {
   display: inline-block;
 }
 
-.palette {
+.color {
   height: 50px;
-  width: 300px;
+  width: 100px;
+}
+
+.column {
+  
 }
