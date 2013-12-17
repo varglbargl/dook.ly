@@ -31,6 +31,8 @@ exports.identifyImages = function (css, results, rurl, res) {
     }
   };
 
+  images = server.unique(images);
+
   console.log('Identified', images.length, 'image(s) in file.');
   // console.log('Assuming', images, 'are images.');
 }

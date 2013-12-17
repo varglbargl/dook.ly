@@ -90,6 +90,16 @@ exports.returnData = function (res, data) {
   res.end(JSON.stringify(data));
 }
 
+exports.unique = function (array) {
+  for (var i = 0; i < array.length; i++) {
+    if (array.indexOf(array[i], i+1) !== -1){
+      array.splice(i, 1);
+      i--;
+    }
+  }
+  return array;
+}
+
 // -- CORS!
 
 var corsHeaders = {

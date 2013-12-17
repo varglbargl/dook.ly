@@ -80,6 +80,8 @@ var mineCSS = function (file, rurl, res) {
     results.colors.push( [parseInt(rgbaValues[0]), parseInt(rgbaValues[1]), parseInt(rgbaValues[2])] );
   };
 
+  results.colors = server.unique(results.colors);
+
   console.log('Identified', results.colors.length, 'color(s) in file.');
 
   // fonts
@@ -88,6 +90,8 @@ var mineCSS = function (file, rurl, res) {
   for (var i = 1; i < fontParsed.length; i+=2) {
     results.fonts.push(fontParsed[i].split(';')[0].split(',')[0].replace("'", '').replace('"', '').replace("'", '').replace('"', ''));
   }
+
+  results.fonts = server.unique(results.fonts);
 
   console.log('Identified', results.fonts.length, 'font(s) in file.');
 

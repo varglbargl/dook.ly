@@ -35,37 +35,38 @@
         <a href="http://github.com/joyent/node"><img class="forkme" src="http://nodejs.org/images/forkme.png" alt="Fork me on GitHub"></a>
     </div>
 
-    <div id="quotes" class="clearfix"><h2>Node.js in the Industry</h2><ul><li class="feedhenry"><img src="industry/data/feedhenry/logo.png" alt="logo" height=34><p>
-  Our Mobile Application Platform is built on Node.js which enables our
-  customers to build incredibly responsive cloud-powered mobile apps
-  that can connect to their Enterprise back-end systems.
-  <br/>
-  <a href="http://www.feedhenry.com/developer/">Cathal McGloin</a>
-  <br/>
-  <span>CEO</span>
-</p>
-</li>
-<li class="backbeam"><img src="industry/data/backbeam/logo.png" alt="logo" height=34><p>Our entire software stack is built in Node. The key benefits for us are: great performance, fast development and a huge flexibility to do both high level and low level functionality.
+    <div id="quotes" class="clearfix"><h2>Node.js in the Industry</h2><ul><li class="jaleoo"><img src="industry/data/jaleoo/logo.png" alt="logo" height=34><p>All our APIs on the server side are built in Node, looking for performance and scalability. It allows us to execute many independent requests from our mobile apps in cheap / low level servers.
 <br>
-<a href="http://backbeam.io">Alberto Gimeno</a>
-<br>
-<span>CEO</span></p>
-</li>
-<li class="shopetti"><img src="industry/data/shopetti/logo.png" alt="logo" height=34><p>
-Node holds our entire back-end, providing an elastic scalable cluster of servers to support our web front-end and provides a REST API for our partners. Node completes our are all JavaScript/JSON cross platforms stack, Web, Mobile, Extension and Node, allowing our development team maximum agility and portability.
-<br>
-<a href="https://www.shopetti.com/">Guy Korland</a>
+<a href="https://www.jaleoo.com/">Israel Cardenas</a>
 <br>
 <span>CTO</span></p>
 </li>
-<li class="ebay"><img src="industry/data/ebay/logo.png" alt="logo" height=34><p>Node’s evented I/O model freed us from worrying about locking
-and concurrency issues that are common with multithreaded async
-I/O.
+<li class="chess"><img src="industry/data/chess/logo.png" alt="logo" height=34><p>
+  Chess is an online game available on facebook.com and fully developed with Node.js. 
+  It offers a gaming experience innovative, fast and in real time.
+  <br/>
+  <a href="https://apps.facebook.com/the-chess-game/">Julien Simonet</a>
+  <br/>
+  <span>Game</span>
+</p>
+</li>
+<li class="transloadit"><img src="industry/data/transloadit/logo.png" alt="logo" height=34><p>Node.js allows us to execute our many independent
+background processes in a non-blocking way. This is
+essential to make file uploading and encoding the way
+we do it a great user experience.
 <br>
-<a href="http://www.ebaytechblog.com/2011/11/30/announcing-ql-io/">Subbu Allamarju</a>
+<a href="http://transloadit.com">Tim Koschuetzki</a>
 <br>
-<span>Principal Member, Technical Staff</span></p>
-</li></ul><h2 style="clear:both"><a href="/industry/">More...</a></h2></div>
+<span>Co-Founder</span>
+</p>
+</li>
+<li class="frisb"><img src="industry/data/frisb/logo.png" alt="logo" height=34><p>
+    Node.js delivered multiple orders of magnitude in performance over any other software framework we tested with its single event loop and non blocking IO.
+    We love Node.
+    <br />
+    <a href="http://frisB.com">Ashley Brener</a><br />
+    <span>VP Engineering</span>
+</p></li></ul><h2 style="clear:both"><a href="/industry/">More...</a></h2></div>
 
     <div id="content" class="clearfix">
             <div id="column1">
