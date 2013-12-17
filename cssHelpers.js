@@ -1,7 +1,8 @@
 var fs = require('fs');
 var url = require('url');
 var http = require('http')
-var colors = require('./colorHelpers.js')
+var colors = require('./colorHelpers.js');
+var returnData = require('./personal-server.js');
 
 exports.identifyCSS = function (file, rurl, res) {
   console.log('Attempting to identify css of', file);
@@ -16,14 +17,13 @@ exports.identifyCSS = function (file, rurl, res) {
     scriptTag = scriptTag[scriptTag.length-1];
   }
 
-  var css = ((scriptTag+'.css').replace("'", '').replace('"', ''));
+  var css = (scriptTag+'.css').replace("'", '').replace('"', '');
   var cssURL = url.resolve(rurl, css);
   console.log('URL of CSS file believed to be', cssURL);
-  downloadCSS(cssURL, rurl, res);
+  downloadCSS(cssURL, res);
 };
 
 var downloadCSS = function(rurl, res){
-  //console.log(url.parse(rurl));
   console.log('Downloading css:', rurl);
   http.get(rurl, function(response){
 
@@ -33,7 +33,6 @@ var downloadCSS = function(rurl, res){
     });
 
     response.on('end', function () {
-      //console.log(url)
       saveCSS(cssData, rurl, res);
     });
   })
@@ -55,6 +54,9 @@ var mineCSS = function (file, res) {
   
   var results = {colors:[], fonts:[]};
   var cssContents = fs.readFileSync(file);
+
+  // colors
+
   var hexParsed = cssContents.toString().split(': #');
   var rgbaParsed = cssContents.toString().split(': rgba(');
   var rgbParsed = cssContents.toString().split(': rgb(');
@@ -73,13 +75,23 @@ var mineCSS = function (file, res) {
     results.colors.push( [parseInt(rgbaValues[0]), parseInt(rgbaValues[1]), parseInt(rgbaValues[2])] );
   };
 
-  console.log('Identified', results.colors.length, 'colors in file.');
+  console.log('Identified', results.colors.length, 'color(s) in file.');
 
   if (results.colors.length > 5){
-    results.colors = colors.assembleColorPalette(results.colors, 255);
+    results.colors = colors.assembleColorPalette(results.colors);
   } else {
     console.log('Not enough colors available for complete color pallete.');
   };
 
-  // TODO: Something with the fonts.
+
+  // fonts
+
+  var fontParsed = cssContents.toString().split('font-family: ');
+  for (var i = 1; i < fontParsed.length; i+=2) {
+    results.fonts.push(fontParsed[i].split(';')[0].split(',')[0].replace("'", '').replace('"', '').replace("'", '').replace('"', ''));
+  }
+
+  console.log('Itentified', results.fonts.length, 'font(s) in file.');
+
+  returnData.returnData(res, results);
 };

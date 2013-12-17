@@ -17,23 +17,35 @@ exports.assembleColorPalette = function (colorArray, tolerance) {
       distinctHues.push(colorArray[i]);
     }
   }
+
   if (distinctHues.length > 5){
     distinctHues = exports.assembleColorPalette(distinctHues, tolerance*1.05);
   } else if (distinctHues.length < 5) {
     distinctHues = exports.assembleColorPalette(colorArray, tolerance*0.95);
   } else {
     console.log('Identified distinct hues:', distinctHues);
-    return distinctHues;
   }
+  return distinctHues;
 };
 
 exports.rgbToHex = function (rgb) {
-  rgb = rgb.split(',');
-  var r = parseInt(rgb[0].split('(')[1]);
-  var g = parseInt(rgb[1]);
-  var b = parseInt(rgb[2].split(')')[0]);
+  if (Array.isArray(rgb)) {
+    var r = rgb[0];
+    var g = rgb[1];
+    var b = rgb[2];
+  } else {
+    rgb = rgb.split(',');
+    var r = parseInt(rgb[0].split('(')[1]);
+    var g = parseInt(rgb[1]);
+    var b = parseInt(rgb[2].split(')')[0]);
+  }
 
-  return '#' + ('000000' + ((r << 16) | (g << 8) | b).toString(16)).slice(-6);
+  var hex = ('000000' + ((r << 16) | (g << 8) | b).toString(16)).slice(-6);
+  if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] === hex[5]) {
+    hex = hex[0] + hex[2] + hex[4];
+  }
+
+  return '#' + hex;
 };
 
 exports.hexToRGB = function (hex) {

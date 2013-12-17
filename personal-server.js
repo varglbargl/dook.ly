@@ -3,6 +3,7 @@ var path = require('path');
 var url  = require('url');
 var fs   = require('fs');
 var cssHelpers = require('./cssHelpers.js');
+var colors = require('./colorHelpers.js')
 
 // -- FILE SERVER
 
@@ -46,13 +47,11 @@ var methodHandler = {
     res.end(data);
   },
   getCSS: function (rurl, res) {
-    console.log('attempting to get CSS for', rurl);
     downloadPage(rurl, res);
   }
 };
 
 var manageFiles = function (req, res) {
-  var statusCode = 200;
   if( req.url.split('=')[0] === '/?url' ){
     methodHandler.getCSS(unescape(req.url.split('=')[1]), res);
   } else {
@@ -61,7 +60,6 @@ var manageFiles = function (req, res) {
 };
 
 var downloadPage = function(rurl, res){
-  console.log(url.parse(rurl));
   console.log('Downloading html:', rurl);
   http.get(rurl, function(response){
 
@@ -71,7 +69,6 @@ var downloadPage = function(rurl, res){
     });
 
     response.on('end', function () {
-      //console.log(url)
       savePage(pageData, rurl, res);
     });
   })
@@ -84,47 +81,19 @@ var savePage = function (page, rurl, res) {
       console.log("Failed to create file for ", rurl);
     } else {
       console.log(localFile + " created.");
-      cssHelpers.identifyCSS(localFile, rurl);
+      cssHelpers.identifyCSS(localFile, rurl, res);
     }
   });
 };
 
-// -- POSSIBLE FUTURE FEATURE: Image color profiling for pages with background images.
-
-// var downloadImage = function(rurl, res){
-//   console.log(url.parse(rurl));
-//   console.log('Downloading ', rurl);
-//   http.get(rurl, function(response){
-
-//     var imageData = '';
-//     response.on('data', function(chunk){
-//       imageData += chunk;
-//     });
-
-//     response.on('end', function () {
-//       //console.log(url)
-//       saveImage(imageData, rurl, res);
-//     });
-//   })
-// };
-
-// var serveImage = function (file) {
-//   return false;
-// };
-
-// var saveImage = function (image, rurl, res) {
-//   var filetype = url.parse(rurl).pathname.split('.')[url.parse(rurl).pathname.split('.').length-1];
-//   console.log(filetype, url.parse(rurl).pathname)
-//   var localFile = __dirname + '/res/' + 'image.' + filetype;
-//   fs.writeFile(localFile, image, function(err) {
-//     if( err ){
-//       console.log("Failed to create file for ", file);
-//     } else {
-//       serveImage('image' + filetype, localFile);
-//       // document.write(file + " created.");
-//     }
-//   });
-// };
+exports.returnData = function (res, data) {
+  var headers = corsHeaders;
+  headers['Location'] = './dooked.html';
+  headers['colors'] = JSON.stringify(data.colors);
+  headers['fonts'] = JSON.stringify(data.fonts);
+  res.writeHead(302, headers);
+  res.end();
+}
 
 // -- CORS!
 
@@ -135,7 +104,8 @@ var corsHeaders = {
   "access-control-max-age": 10 // Seconds.
 };
 
-// Setup server
+// -- SERVER SETUP
+
 var port = process.env.PORT || 8080;
 var server = http.createServer(requestHandler);
 console.log('Listening on port:', port);
