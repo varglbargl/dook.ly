@@ -6,12 +6,35 @@
   <link rel="stylesheet" href="src/style.css">
 </head>
 <body>
-
+<!-- 
   <h1>dook.ly</h1>
-  <h3>The colors, dook, the colors!</h3>
-  <form method="GET">
-    <input name="url"></input>
-    <input type="submit" value="GO">
+  <h3>The colors, dook, the colors!</h3> -->
+  <form class="stop">
+    <input class="stop urlField"></input>
+    <input class="stop" type="submit">
   </form>
+
+  <div id="colorPalette"></div>
+
+  <script>
+    $('.stop').on('submit', function (e) {
+      e.preventDefault();
+      $('#colorPalette').html('').hide();
+
+      $.ajax({
+        data: {
+          url: $('.urlField').val()
+        },
+        method: 'GET',
+        success: function (data) {
+          data = JSON.parse(data);
+          $('#colorPalette').show();
+          for (var i = 0; i < data.colors.length; i++) {
+            $('#colorPalette').append('<div class="palette" style="background-color: rgb(' + data.colors[i] + ')"></div>');
+          };
+        }  
+      });
+    });
+  </script>
 </body>
 </html>

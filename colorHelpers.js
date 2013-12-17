@@ -18,9 +18,9 @@ exports.assembleColorPalette = function (colorArray, tolerance) {
     }
   }
 
-  if (distinctHues.length > 5){
+  if (distinctHues.length > 6){
     distinctHues = exports.assembleColorPalette(distinctHues, tolerance*1.05);
-  } else if (distinctHues.length < 5) {
+  } else if (distinctHues.length < 6) {
     distinctHues = exports.assembleColorPalette(colorArray, tolerance*0.95);
   } else {
     console.log('Identified distinct hues:', distinctHues);

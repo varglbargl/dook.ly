@@ -1,3 +1,7 @@
+body {
+  padding: 30px;
+}
+
 h1 {
   font-family: 'Lobster', Helvetica, arial, sans-serif;
   font-size: 4em;
@@ -6,6 +10,12 @@ h1 {
   color: #56D;
 }
 
-body {
-  padding: 30px;
+#colorPalette {
+  border: 1px solid #333;
+  display: none;
+}
+
+.palette {
+  height: 50px;
+  width: 300px;
 }

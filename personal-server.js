@@ -5,8 +5,6 @@ var fs   = require('fs');
 var cssHelpers = require('./cssHelpers.js');
 var colors = require('./colorHelpers.js')
 
-// -- FILE SERVER
-
 var requestHandler = function (req, res) {
   console.log(req.method, 'request made for', req.url);
   manageFiles(req, res);
@@ -88,11 +86,8 @@ var savePage = function (page, rurl, res) {
 
 exports.returnData = function (res, data) {
   var headers = corsHeaders;
-  headers['Location'] = './dooked.html';
-  headers['colors'] = JSON.stringify(data.colors);
-  headers['fonts'] = JSON.stringify(data.fonts);
-  res.writeHead(302, headers);
-  res.end();
+  res.writeHead(200, headers);
+  res.end(JSON.stringify(data));
 }
 
 // -- CORS!

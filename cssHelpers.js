@@ -2,23 +2,28 @@ var fs = require('fs');
 var url = require('url');
 var http = require('http')
 var colors = require('./colorHelpers.js');
-var returnData = require('./personal-server.js');
+var server = require('./personal-server.js');
+var images = require('./imageHelpers.js');
 
 exports.identifyCSS = function (file, rurl, res) {
   console.log('Attempting to identify css of', file);
   var html = fs.readFileSync(file);
 
-  // console.log(unescape(html.toString()));
+  var findLinkTags = function (html) {
+    var result = '';
 
-  var scriptTag = html.toString().split('.css')[0];
+    return result;
+  };
 
-  if (scriptTag.length > 1) {
-    scriptTag = scriptTag.split('href=');
-    scriptTag = scriptTag[scriptTag.length-1];
+  var linkTag = html.toString().split('.css')[0];
+
+  if (linkTag.length > 1) {
+    linkTag = linkTag.split('href=');
+    linkTag = linkTag[linkTag.length-1];
   }
 
-  var css = (scriptTag+'.css').replace("'", '').replace('"', '');
-  var cssURL = url.resolve(rurl, css);
+  var css = (linkTag+'.css').replace("'", '').replace('"', '');
+  var cssURL = unescape(url.resolve(rurl, css));
   console.log('URL of CSS file believed to be', cssURL);
   downloadCSS(cssURL, res);
 };
@@ -91,7 +96,7 @@ var mineCSS = function (file, res) {
     results.fonts.push(fontParsed[i].split(';')[0].split(',')[0].replace("'", '').replace('"', '').replace("'", '').replace('"', ''));
   }
 
-  console.log('Itentified', results.fonts.length, 'font(s) in file.');
+  console.log('Isentified', results.fonts.length, 'font(s) in file.');
 
-  returnData.returnData(res, results);
+  images.identifyImages(cssData, results, res);
 };
