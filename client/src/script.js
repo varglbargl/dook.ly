@@ -1,19 +1,29 @@
-$(document).ready(function () {
-  var featuredPalette = [[83, 129, 250], [76, 58, 40], [236, 236, 236], [208, 206, 180], [18, 11, 8]];
-  var featuredFonts = ['Lobster', 'Helvetica'];
+var featuredPalette = ['#5381fa', '#4c3a28', '#ececec', '#d0ceb4', '#120b08'];
+var featuredFonts = ['Lobster', 'Helvetica'];
 
+$(document).ready(function () {
+
+  for (var i = 0; i < featuredPalette.length; i++) {
+    $('#featuredColorPalette').append('<div class="color"\
+      style="background-color: ' + featuredPalette[i] + '\
+      "></div><div class="hex"><h3 class="hexValue">' + featuredPalette[i] + '\
+      </h3></div><br />');
+  }
+
+  for (var i = 0; i < featuredFonts.length; i++) {
+    $('#featuredFonts').append('<div class="font" style="font-family:' + featuredFonts[i] + '"><h2 class="fontName">' + featuredFonts[i] + '</h2></div>');
+  }
   
-  $('#colorPalette').hide();
-  $('#fonts').hide();
+  $('#results').hide();
 
   $('.stop').on('submit', function (e) {
     e.preventDefault();
 
     $('#splash').hide();
-
     $('#colorPalette').html('<h1 class="header">Color Palette</h1>').hide();
     $('#fonts').html('<h1 class="header">Font Profile</h1>').hide();
     $('#loadry').show();
+    debugger;
 
     $.ajax({
       data: {
@@ -28,6 +38,7 @@ $(document).ready(function () {
         $('h1').css('color', brightest(data.colors));
 
         $('#loadry').hide();
+        $('#results').show()
         $('#colorPalette').show();
         for (var i = 0; i < data.colors.length; i++) {
           $('#colorPalette').append('<div class="color"\
