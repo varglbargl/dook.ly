@@ -1,5 +1,5 @@
 var featuredPalette = ['#5381fa', '#4c3a28', '#ececec', '#d0ceb4', '#120b08'];
-var featuredFonts = ['Lobster', 'Helvetica'];
+var featuredFonts = ['Lobster', 'Futura'];
 
 $(document).ready(function () {
 

@@ -1,6 +1,6 @@
 {
   "name": "CSS-sample",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "general purpose css data miner for identifying design trends",
   "main": "personal-server.js",
   "scripts": {
