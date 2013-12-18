@@ -1,14 +1,26 @@
 body {
-  padding: 30px;
+  background-image: url("squares.png");
+  background-color: #333;
   font-family: Helvetica, Arial, sans-serif;
+  margin-top: -20px;
+  text-align: center;
+
+  transition: background-color 0.2s linear;
+  -webkit-transition: background-color 0.2s linear;
+  -moz-transition: background-color 0.2s linear;
 }
 
 h1 {
   font-family: 'Lobster', Helvetica, arial, sans-serif;
-  font-size: 4em;
+  font-size: 6em;
   margin: 0;
   margin-left: 5px;
-  color: #56D;
+  color: #FFF;
+  text-shadow: 2px 2px #000;
+
+  transition: color 0.2s linear;
+  -webkit-transition: color 0.2s linear;
+  -moz-transition: color 0.2s linear;
 }
 
 h2 {
@@ -18,27 +30,78 @@ h2 {
   top: -10px;
 }
 
+h2.fontName {
+  font-size: 2em;
+  position: static;
+}
+
+h3.hexValue {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 12px;
+  line-height: 0;
+  position: relative;
+  top: -22px;
+}
+
+input {
+  font-size: 1.5em;
+}
+
+.submit {
+  font-size: 2em
+}
+
 svg {
   position: absolute;
   top: 30px;
   left: 200px;
 }
 
+#container {
+  position: relative;
+  width: 80%;
+  max-width: 800px;
+  height: 100%;
+  padding: 20px;
+  padding-top: 40px;
+  margin-top: -20px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.7);
+  background-image: url("squares.png");
+}
+
 #loadry {
   position: relative;
+  margin: 0 auto;
   display: none;
 }
 
 #colorPalette {
-  border: 1px solid #333;
+  text-align: left;
   display: inline-block;
 }
 
 .color {
+  display: inline-block;
   height: 50px;
   width: 100px;
 }
 
 .column {
-  
+  display: inline-block;
+  vertical-align: top;
+  width: 40%;
+  margin: 0 auto;
+}
+
+.hex {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.header {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 2em;
 }

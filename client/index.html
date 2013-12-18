@@ -7,45 +7,62 @@
 </head>
 <body>
 
-  <h1>dook.ly</h1>
-  <h3>The colors, dook, the colors!</h3>
-  <form class="stop">
-    <input class="stop urlField" type="url" value="http://nodejs.org" ></input>
-    <input class="stop" type="submit" value="GO">
-  </form>
-  <div id="loadry">
-    <h2>Loading</h2>
-    <?xml version="1.0" encoding="utf-8"?>
-    <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-      <g>
-        <path fill="none" stroke="#000" stroke-width="5" d="M 59.125,32 A 27.0625,27 0 1 1 5,32 27.0625,27 0 1 1 59.125,32 z" />
-        <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="square" d="m 32.0625,32 0,-17.645625">
-          <animateTransform attributeName="transform" 
-                            attributeType="XML"
-                            type="rotate" 
-                            from="0 32 32" 
-                            to="360 32 32" 
-                            dur="0.5s"
-                            repeatCount="indefinite"/>
-        </path>
-        <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="square" d="m 45.556603,31.84375 -13.337853,0">
-          <animateTransform attributeName="transform" 
-                            attributeType="XML"
-                            type="rotate" 
-                            from="0 32 32" 
-                            to="360 32 32" 
-                            dur="6s"
-                            repeatCount="indefinite"/>
-        </path>
-      </g>
-    </svg>
+  <div id="container">
+
+    <h1>dook.ly</h1>
+    <h3><i>"The colors, dook, the colors!"</i></h3>
+    <form class="stop">
+      <input class="stop urlField" type="url" value="http://nodejs.org" ></input>
+      <input class="stop submit" type="submit" value="dook">
+    </form>
+
+    <div id="splash">
+      <div id="colorPalette" class="column">
+        <h1 class="header">Featured Palette</h1>
+      </div>
+
+      <div id="fonts" class="column">
+        <h1 class="header">Featured Fonts</h1>
+    </div>
+    </div>
+
+    <div id="loadry">
+      <h2>Loading</h2>
+      <?xml version="1.0" encoding="utf-8"?>
+      <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <path fill="none" stroke="#000" stroke-width="5" d="M 59.125,32 A 27.0625,27 0 1 1 5,32 27.0625,27 0 1 1 59.125,32 z" />
+          <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="square" d="m 32.0625,32 0,-17.645625">
+            <animateTransform attributeName="transform" 
+                              attributeType="XML"
+                              type="rotate" 
+                              from="0 32 32" 
+                              to="360 32 32" 
+                              dur="0.5s"
+                              repeatCount="indefinite"/>
+          </path>
+          <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="square" d="m 45.556603,31.84375 -13.337853,0">
+            <animateTransform attributeName="transform" 
+                              attributeType="XML"
+                              type="rotate" 
+                              from="0 32 32" 
+                              to="360 32 32" 
+                              dur="6s"
+                              repeatCount="indefinite"/>
+          </path>
+        </g>
+      </svg>
+    </div>
+
+    <div id="colorPalette" class="column">
+    </div>
+
+    <div id="fonts" class="column">
+    </div>
+
   </div>
 
-  <div id="colorPalette" class="column">
-  </div>
-  
-  <div id="fonts" class="column">
-  </div>
+  <script src="src/script.js"></script>
 
 </body>
 </html>

@@ -84,6 +84,8 @@ var savePage = function (page, rurl, res) {
   });
 };
 
+// and then some other stuff hapens...
+
 exports.returnData = function (res, data) {
   for (var i = 0; i < data.colors.length; i++) {
     data.colors[i] = colors.rgbToHex(data.colors[i]);
@@ -121,7 +123,7 @@ var corsHeaders = {
   "access-control-allow-origin": "*",
   "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
   "access-control-allow-headers": "content-type, accept",
-  "access-control-max-age": 10 // Seconds.
+  "access-control-max-age": 30 // Seconds.
 };
 
 // -- SERVER SETUP
