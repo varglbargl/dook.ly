@@ -5,9 +5,9 @@ body {
   margin-top: -20px;
   text-align: center;
 
-  transition: background-color 0.2s linear;
-  -webkit-transition: background-color 0.2s linear;
-  -moz-transition: background-color 0.2s linear;
+  transition: background-color 0.3s linear;
+  -webkit-transition: background-color 0.3s linear;
+  -moz-transition: background-color 0.3s linear;
 }
 
 h1 {
@@ -18,9 +18,9 @@ h1 {
   color: #FFF;
   text-shadow: 2px 2px #000;
 
-  transition: color 0.2s linear;
-  -webkit-transition: color 0.2s linear;
-  -moz-transition: color 0.2s linear;
+  transition: color 0.3s linear;
+  -webkit-transition: color 0.3s linear;
+  -moz-transition: color 0.3s linear;
 }
 
 h2 {
@@ -68,7 +68,7 @@ svg {
   padding-top: 40px;
   margin-top: -20px;
   margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.6);
   background-image: url("squares.png");
 }
 

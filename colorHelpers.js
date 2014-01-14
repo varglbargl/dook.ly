@@ -1,6 +1,6 @@
 // for assembling color palette from array of raw rgb
 // tolerance is used to specify how different your resulting color should can be. Higher value means less results with higher contrast.
-exports.assembleColorPalette = function (colorArray, tolerance) {
+module.exports.assembleColorPalette = function (colorArray, tolerance) {
   tolerance = tolerance || 255;
   var distinctHues = [colorArray[0]]; // because it has to have something to compare to initially. Probably a better way to handle this.
 
@@ -20,16 +20,16 @@ exports.assembleColorPalette = function (colorArray, tolerance) {
   }
 
   if (distinctHues.length > 6){
-    distinctHues = exports.assembleColorPalette(distinctHues, tolerance*1.1);
+    distinctHues = module.exports.assembleColorPalette(distinctHues, tolerance*1.1);
   } else if (distinctHues.length < 6) {
-    distinctHues = exports.assembleColorPalette(colorArray, tolerance*0.9);
+    distinctHues = module.exports.assembleColorPalette(colorArray, tolerance*0.9);
   } else {
     console.log('Identified 6 most distinct hues.');
   }
   return distinctHues;
 };
 
-exports.rgbToHex = function (rgb) {
+module.exports.rgbToHex = function (rgb) {
   if (Array.isArray(rgb)) {
     var r = rgb[0];
     var g = rgb[1];
@@ -49,7 +49,7 @@ exports.rgbToHex = function (rgb) {
   return '#' + hex;
 };
 
-exports.hexToRGB = function (hex) {
+module.exports.hexToRGB = function (hex) {
   hex = hex.replace(/\W\D/, '');
 
   var rgb = [];

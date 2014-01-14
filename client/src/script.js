@@ -5,9 +5,9 @@ $(document).ready(function () {
 
   for (var i = 0; i < featuredPalette.length; i++) {
     $('#featuredColorPalette').append('<div class="color"\
-      style="background-color: ' + featuredPalette[i] + '\
-      "></div><div class="hex"><h3 class="hexValue">' + featuredPalette[i] + '\
-      </h3></div><br />');
+      style="background-color: ' + featuredPalette[i]
+      + '"></div><div class="hex"><h3 class="hexValue">'
+      + featuredPalette[i].toUpperCase() + '</h3></div><br />');
   }
 
   for (var i = 0; i < featuredFonts.length; i++) {
@@ -23,17 +23,15 @@ $(document).ready(function () {
     $('#colorPalette').html('<h1 class="header">Color Palette</h1>').hide();
     $('#fonts').html('<h1 class="header">Font Profile</h1>').hide();
     $('#loadry').show();
-    debugger;
 
     $.ajax({
       data: {
-        url: $('.urlField').val()
+        url: $('.urlField').val() // stop trying to put a semicolon here
       },
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
       method: 'GET',
       success: function (data) {
-        console.log(data);
         $('body').css('background-color', lightest(data.colors));
         $('h1').css('color', brightest(data.colors));
 
@@ -42,9 +40,9 @@ $(document).ready(function () {
         $('#colorPalette').show();
         for (var i = 0; i < data.colors.length; i++) {
           $('#colorPalette').append('<div class="color"\
-            style="background-color: ' + data.colors[i] + '\
-            "></div><div class="hex"><h3 class="hexValue">' + data.colors[i] + '\
-            </h3></div><br />');
+            style="background-color: ' + data.colors[i]
+            + '"></div><div class="hex"><h3 class="hexValue">'
+            + data.colors[i].toUpperCase() + '</h3></div><br />');
         }
         $('#fonts').show();
         for (var i = 0; i < data.fonts.length; i++) {

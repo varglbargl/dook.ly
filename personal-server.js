@@ -86,7 +86,7 @@ var savePage = function (page, rurl, res) {
 
 // and then some other stuff hapens...
 
-exports.returnData = function (res, data) {
+module.exports.returnData = function (res, data) {
   for (var i = 0; i < data.colors.length; i++) {
     data.colors[i] = colors.rgbToHex(data.colors[i]);
   };
@@ -98,7 +98,7 @@ exports.returnData = function (res, data) {
 
 // -- HELPERS
 
-exports.unique = function (array) {
+module.exports.unique = function (array) {
   for (var i = 0; i < array.length; i++) {
     if (array.indexOf(array[i], i+1) !== -1){
       array.splice(i, 1);
@@ -109,7 +109,7 @@ exports.unique = function (array) {
 }
 
 // Lo-Dash: The cure for your async headaches
-exports.after = function (n, func) {
+module.exports.after = function (n, func) {
   return function() {
     if (--n < 1) {
       return func.apply(this, arguments);
