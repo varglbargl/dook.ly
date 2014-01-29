@@ -1,16 +1,13 @@
-var fs = require('fs');
 var url = require('url');
-var http = require('http')
+var http = require('http');
 var colors = require('./colorHelpers.js');
 var server = require('./personal-server.js');
 var images = require('./imageHelpers.js');
+var cssData = require('./res/data.js');
 
-var tempFiles = [];
-
-exports.identifyCSS = function (file, rurl, res) {
-  console.log('Attempting to identify css of', file);
-  tempFiles.push(file);
-  var html = fs.readFileSync(file);
+exports.identifyCSS = function (hash, rurl, res) {
+  console.log('Attempting to identify css of', hash);
+  var html = cssData[hash].html;
 
   var findLinkTags = function (html) {
     var result = [];
@@ -33,56 +30,40 @@ exports.identifyCSS = function (file, rurl, res) {
   var results = findLinkTags(html);
   console.log('URLs of CSS file believed to be', results);
 
-  downloadCSS(results, res);
+  downloadCSS(results, res, hash);
 };
 
-var downloadCSS = function(rurls, res){
+var downloadCSS = function(rurls, res, hash){
+  var proceedToMining = server.after(rurls.length, function () {
+    mineCSS(res, hash);
+  });
+
   for (var i = 0; i < rurls.length; i++) {
     console.log('Downloading css:', rurls[i]);
     http.get(rurls[i], function (response) {
 
-      var cssData = '';
+      var cssText = '';
       response.on('data', function (chunk) {
-        cssData += chunk;
+        cssText += chunk;
       });
 
       response.on('end', function () {
-        saveCSS(cssData, rurls[i], res);
+        cssData[hash].css.push(cssText);
+        proceedToMining();
       });
     });
   }
 
-  var localFiles = [];
-
-  var proceedToMining = server.after(rurls.length, function (localFiles, rurls, res) {
-    mineCSS(localFiles, rurls, res);
-  })
-
-  var saveCSS = function (file, rurl, res) {
-    var fileName = new Date().getTime();
-    var localFile = __dirname + '/res/' + fileName + '.txt';
-    fs.writeFile(localFile, file, function(err) {
-      if( err ){
-        console.log("Failed to create file for ", rurl);
-      } else {
-        console.log(localFile, "created.");
-        localFiles.push(localFile);
-        tempFiles.push(localFile);
-        proceedToMining(localFiles, rurls, res);
-      }
-    });
-  };
 };
 
-var mineCSS = function (files, rurls, res) {
+var mineCSS = function (res, hash) {
 
-  console.log('Proceeding to analyze', files.length, 'CSS files.');
+  console.log('Proceeding to analyze', cssData[hash].css.length, 'CSS files.');
   
   var results = {colors:[], fonts:[]};
 
-  var parseCSS = function (file) {
+  var parseCSS = function (cssContents) {
     // colors
-    var cssContents = fs.readFileSync(file);
     var hexParsed = cssContents.toString().split(/\:\s?\#/);
     var rgbaParsed = cssContents.toString().split(/\:\s?rgba\(/);
     var rgbParsed = cssContents.toString().split(/\:\s?rgb\(/);
@@ -119,7 +100,7 @@ var mineCSS = function (files, rurls, res) {
     proceedToCheckout(res, results);
   };
 
-  var proceedToCheckout = server.after(files.length, function (res, results) {
+  var proceedToCheckout = server.after(cssData[hash].css.length, function (res, results) {
     results.colors = server.unique(results.colors);
     console.log('Identified', results.fonts.length, 'font(s) in file.');
     console.log('Identified', results.colors.length, 'color(s) in file.');
@@ -130,24 +111,12 @@ var mineCSS = function (files, rurls, res) {
       console.log('Not enough colors to assemble full color pallete.');
     }
 
-    clearTempFiles();
-    //images.identifyImages(cssContents, results, rurl, res);
+    // Planned feature: Image color analysis. I know it's possible...
+    // images.identifyImages(cssContents, results, rurl, res);
     server.returnData(res, results);
   });
 
-  for (var i = 0; i < files.length; i++) {
-    parseCSS(files[i]);
+  for (var i = 0; i < cssData[hash].css.length; i++) {
+    parseCSS(cssData[hash].css[i]);
   }
-};
-
-var clearTempFiles = function () {
-  for (var i = 0; i < tempFiles.length; i++) {
-    console.log('Deleting temporary file', tempFiles[i]);
-    fs.unlink(tempFiles[i], function (err) {
-      if (err) {
-        console.log('Failed to delete file');
-      }
-    });
-  }
-  tempFiles = [];
 };
