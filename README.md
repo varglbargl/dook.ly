@@ -2,7 +2,7 @@ dook.ly
 ============
 "The colors, dook, the colors!"
 
-Tool for sampling and analyzing graphic and web design choices, such as color scheme and font pairings, from the web using HTML5.
+Web application that data mines and analyzes style information from the web to construct design profiles including color scheme and font pairings. Utilizes custom algorithms for analyzing color information and assembling a representative color scheme based on comparisons of hue, saturation, and luminosity.
 
 Made at a Hack Reactor 48-Hour Hackathon in San Francisco.
 
