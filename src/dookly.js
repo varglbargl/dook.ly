@@ -13,7 +13,7 @@ $(document).ready(function () {
   for (var i = 0; i < featuredFonts.length; i++) {
     $('#featuredFonts').append('<div class="font" style="font-family:' + featuredFonts[i] + '"><h2 class="fontName">' + featuredFonts[i] + '</h2></div>');
   }
-  
+
   $('#results').hide();
 
   $('.stop').on('submit', function (e) {
@@ -25,6 +25,7 @@ $(document).ready(function () {
     $('#loadry').show();
 
     $.ajax({
+      url: '/dook',
       data: {
         url: $('.urlField').val() // stop trying to put a semicolon here
       },

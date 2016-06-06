@@ -1,1 +1,1 @@
-web: node personal-server.js
+web: node server/server.js

@@ -1,7 +1,7 @@
 var url = require('url');
 var fs = require('fs');
 var colors = require('./colorHelpers.js');
-var server = require('./personal-server.js');
+var server = require('./server.js');
 var css = require('./cssHelpers.js');
 
 module.exports.identifyImages = function (cssFile, results, rurls, res) {

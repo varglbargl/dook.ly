@@ -1,14 +1,11 @@
 <html>
 <head>
   <title>dook.ly - "I'm color blind, kid."</title>
-  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
   <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="src/style.css">
+  <link rel="stylesheet" href="res/styles.css">
 </head>
 <body>
-
   <div id="container">
-
     <h1>dook.ly</h1>
     <h3><i>"The colors, dook, the colors!"</i></h3>
     <form class="stop">
@@ -29,26 +26,26 @@
     <div id="loadry">
       <h2>Loading</h2>
 
-      <!-- Thanks to... TODO: remember the guy's name who made this svg -->
+      <!-- TODO: SVG animations are OUT! Gifs are in! Ride the memewave meme wave, kid. -->
       <?xml version="1.0" encoding="utf-8"?>
       <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
         <g>
           <path fill="none" stroke="#000" stroke-width="5" d="M 59.125,32 A 27.0625,27 0 1 1 5,32 27.0625,27 0 1 1 59.125,32 z" />
           <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="square" d="m 32.0625,32 0,-17.645625">
-            <animateTransform attributeName="transform" 
+            <animateTransform attributeName="transform"
                               attributeType="XML"
-                              type="rotate" 
-                              from="0 32 32" 
-                              to="360 32 32" 
+                              type="rotate"
+                              from="0 32 32"
+                              to="360 32 32"
                               dur="0.5s"
                               repeatCount="indefinite"/>
           </path>
           <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="square" d="m 45.556603,31.84375 -13.337853,0">
-            <animateTransform attributeName="transform" 
+            <animateTransform attributeName="transform"
                               attributeType="XML"
-                              type="rotate" 
-                              from="0 32 32" 
-                              to="360 32 32" 
+                              type="rotate"
+                              from="0 32 32"
+                              to="360 32 32"
                               dur="6s"
                               repeatCount="indefinite"/>
           </path>
@@ -64,8 +61,7 @@
     </div>
 
   </div>
-
-  <script src="src/script.js"></script>
-
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script src="src/build.js"></script>
 </body>
 </html>

@@ -19,12 +19,12 @@ module.exports.assembleColorPalette = function (colorArray, tolerance) {
     }
   }
 
-  if (distinctHues.length > 6){
-    distinctHues = module.exports.assembleColorPalette(distinctHues, tolerance*1.1);
-  } else if (distinctHues.length < 6) {
-    distinctHues = module.exports.assembleColorPalette(colorArray, tolerance*0.9);
+  if (distinctHues.length > 7){
+    distinctHues = module.exports.assembleColorPalette(distinctHues, tolerance*1.2);
+  } else if (distinctHues.length < 5) {
+    distinctHues = module.exports.assembleColorPalette(colorArray, tolerance*0.8);
   } else {
-    console.log('Identified 6 most distinct hues.');
+    console.log('Identified some of the most distinct hues.');
   }
   return distinctHues;
 };

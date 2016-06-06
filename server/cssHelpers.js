@@ -1,9 +1,10 @@
 var url = require('url');
 var http = require('http');
+var https = require('https');
 var colors = require('./colorHelpers.js');
-var server = require('./personal-server.js');
+var server = require('./server.js');
 var images = require('./imageHelpers.js');
-var cssData = require('./res/data.js');
+var cssData = require('./data.js');
 
 exports.identifyCSS = function (hash, rurl, res) {
   console.log('Attempting to identify css of', hash);
@@ -12,6 +13,7 @@ exports.identifyCSS = function (hash, rurl, res) {
   var findLinkTags = function (html) {
     var result = [];
     html = html.toString().split('.css');
+    console.log(html[0]);
 
     while (Array.isArray(html) && html.length !== 0) {
       var linkTag = html[0].split('=');
@@ -40,18 +42,33 @@ var downloadCSS = function(rurls, res, hash){
 
   for (var i = 0; i < rurls.length; i++) {
     console.log('Downloading css:', rurls[i]);
-    http.get(rurls[i], function (response) {
+    if (cssData[hash].https) {
+      https.get(rurls[i], function (response) {
 
-      var cssText = '';
-      response.on('data', function (chunk) {
-        cssText += chunk;
-      });
+        var cssText = '';
+        response.on('data', function (chunk) {
+          cssText += chunk;
+        });
 
-      response.on('end', function () {
-        cssData[hash].css.push(cssText);
-        proceedToMining();
+        response.on('end', function () {
+          cssData[hash].css.push(cssText);
+          proceedToMining();
+        });
       });
-    });
+    } else {
+      http.get(rurls[i], function (response) {
+
+        var cssText = '';
+        response.on('data', function (chunk) {
+          cssText += chunk;
+        });
+
+        response.on('end', function () {
+          cssData[hash].css.push(cssText);
+          proceedToMining();
+        });
+      });
+    }
   }
 
 };
@@ -59,7 +76,7 @@ var downloadCSS = function(rurls, res, hash){
 var mineCSS = function (res, hash) {
 
   console.log('Proceeding to analyze', cssData[hash].css.length, 'CSS files.');
-  
+
   var results = {colors:[], fonts:[]};
 
   var parseCSS = function (cssContents) {

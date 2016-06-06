@@ -1,15 +1,15 @@
 {
-  "name": "CSS-sample",
-  "version": "1.0.0",
-  "description": "general purpose css data miner for identifying design trends",
-  "main": "personal-server.js",
+  "name": "dook.ly",
+  "version": "2.0.0",
+  "description": "The colors, dook, the colors!",
+  "main": "server/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node personal-server.js"
+    "postinstall": "grunt",
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ehannum/image-sample.git"
+    "url": "https://github.com/ehannum/dook.ly.git"
   },
   "keywords": [
     "node",
@@ -20,10 +20,16 @@
   "author": "Eric Hannum",
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/ehannum/image-sample/issues"
+    "url": "https://github.com/ehannum/dook.ly/issues"
   },
-  "homepage": "https://github.com/ehannum/image-sample",
-  "engines": {
-    "node": "0.10.x"
+  "homepage": "https://github.com/ehannum/dook.ly",
+  "dependencies": {
+    "body-parser": "~1.13.2",
+    "express": "~4.13.0",
+    "grunt": "~0.4.5",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.3.2",
+    "grunt-sass": "^1.1.0"
   }
 }
