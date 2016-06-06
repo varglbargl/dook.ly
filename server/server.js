@@ -18,15 +18,6 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// -- CORS HEADERS because I think those are still a thing. Man, I don't know.
-
-var corsHeaders = {
-  "access-control-allow-origin": "*",
-  "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "access-control-allow-headers": "content-type, accept",
-  "access-control-max-age": 30 // Seconds.
-};
-
 // -- HELPERS
 
 app.get('/dook', function (req, res) {
@@ -80,9 +71,7 @@ module.exports.returnData = function (res, data) {
     data.colors[i] = colors.rgbToHex(data.colors[i]);
   }
   console.log('returning colors', data.colors, 'and fonts', data.fonts);
-  var headers = corsHeaders;
-  res.writeHead(200, headers);
-  res.end(JSON.stringify(data));
+  res.send(data);
 };
 
 // -- HELPERS
