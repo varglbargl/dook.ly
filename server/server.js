@@ -18,10 +18,18 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// -- CORS HEADERS because I think those are still a thing. Man, I don't know.
+
+var corsHeaders = {
+  "access-control-allow-origin": "*",
+  "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "access-control-allow-headers": "content-type, accept",
+  "access-control-max-age": 30 // Seconds.
+};
+
 // -- HELPERS
 
 app.get('/dook', function (req, res) {
-  console.log(querystring.parse(req.url));
   if( querystring.parse(req.url)['/dook?url'] ) {
     downloadPage(unescape(req.url.split('=')[1]), res);
   } else {

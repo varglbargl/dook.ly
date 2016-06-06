@@ -13,7 +13,6 @@ exports.identifyCSS = function (hash, rurl, res) {
   var findLinkTags = function (html) {
     var result = [];
     html = html.toString().split('.css');
-    console.log(html[0]);
 
     while (Array.isArray(html) && html.length !== 0) {
       var linkTag = html[0].split('=');
